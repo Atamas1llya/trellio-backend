@@ -22,12 +22,13 @@ describe('Authentication', () => {
     done();
   });
 
-  describe('[POST] /api/register', () => {
+  describe('[POST] /api/signup', () => {
     it('It should REGISTER the user', (done) => {
       api.post({
-        url: '/api/register',
+        url: '/api/signup',
         body: {
           email: 'test@gmail.com',
+          name: 'tester',
           password: 'tester',
         },
       }, (err, res) => {
@@ -38,7 +39,7 @@ describe('Authentication', () => {
 
     it('It should REJECT user duplicate', (done) => {
       api.post({
-        url: '/api/register',
+        url: '/api/signup',
         body: {
           email: 'test@gmail.com',
           password: 'tester',
@@ -51,7 +52,7 @@ describe('Authentication', () => {
 
     it('It should REJECT wrong user', (done) => {
       api.post({
-        url: '/api/register',
+        url: '/api/signup',
         body: {
           email: '',
           password: 'shrt',

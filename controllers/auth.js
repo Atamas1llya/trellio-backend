@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 import User from '../models/user';
 
-export const register = async (req, res, next) => {
+export const signup = async (req, res, next) => {
   const credentials = req.body;
   let user, token;
 

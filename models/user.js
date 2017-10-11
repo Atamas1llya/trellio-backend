@@ -3,9 +3,20 @@ import beautifyUnique from 'mongoose-beautiful-unique-validation';
 import bcrypt from 'bcrypt-as-promised';
 
 const UserSchema = new Schema({
-  email: { type: String, required: true, unique: [true, 'This email is already in use'] },
-  name: { type: String, },
-  password: { type: String, required: true, minlength: 6 },
+  email: {
+    type: String,
+    required: [true, 'Email is required'],
+    unique: 'Email {VALUE} is already in use',
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 6,
+  },
 });
 
 UserSchema.plugin(beautifyUnique);
