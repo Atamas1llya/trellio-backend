@@ -12,6 +12,7 @@ import config from './config';
 
 // routes
 import authRoutes from './routes/auth';
+import profileRoutes from './routes/profile';
 import boardsRoutes from './routes/boards';
 import tasksRoutes from './routes/tasks';
 
@@ -48,6 +49,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.use('/api', authRoutes);
+app.use('/api', profileRoutes);
 app.use('/api', boardsRoutes);
 app.use('/api', tasksRoutes);
 

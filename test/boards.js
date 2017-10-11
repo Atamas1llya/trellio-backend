@@ -1,4 +1,4 @@
-import './auth';
+import './profile';
 
 import chai from 'chai';
 import chaiHttp from 'chai-http';
