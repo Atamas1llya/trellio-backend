@@ -4,7 +4,7 @@ export const getBoards = async (req, res, next) => {
   let boards;
 
   try {
-    boards = await Board.find().lean();
+    boards = await Board.find().populate('creator').lean();
   } catch ({ message }) {
     return next({
       status: 500,

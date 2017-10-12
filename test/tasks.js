@@ -100,4 +100,17 @@ describe('Tasks', () => {
       });
     });
   });
+
+  describe('[GET] /api/boards/:board_id/tasks', () => {
+    it('It should GET all tasks on the board', (done) => {
+      api.get({
+        url: `/api/boards/${board_id}/tasks`,
+        token,
+      }, (err, res) => {
+        res.should.have.status(200);
+        res.body.tasks.length.should.be.eql(2);
+        done();
+      });
+    });
+  });
 });
