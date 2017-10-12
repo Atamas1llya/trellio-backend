@@ -6,9 +6,12 @@ export default async (req, res, next) => {
 
   try {
     user = await userService.getUserByToken(token);
+    if (!user) {
+      throw new Error("User does not exists!");
+    }
   } catch ({ message }) {
     return next({
-      status: 500,
+      status: 403,
       message,
     });
   }
