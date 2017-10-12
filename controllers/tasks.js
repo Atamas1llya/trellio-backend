@@ -62,8 +62,10 @@ export const updateTask = async (req, res, next) => {
   }
 
   res
-    .status(204)
-    .send();
+    .status(200)
+    .json({
+      message: 'Task successfully updated',
+    });
 }
 
 export const updateTaskStatus = async (req, res, next) => {
@@ -79,7 +81,10 @@ export const updateTaskStatus = async (req, res, next) => {
   }
 
   res
-    .status(204);
+    .status(200)
+    .json({
+      message: 'Task successfully updated',
+    });
 }
 
 export const deleteTask = async (req, res, next) => {
@@ -95,5 +100,8 @@ export const deleteTask = async (req, res, next) => {
   }
 
   res
-    .status(204);
+    .status(200)
+    .json({
+      message: 'Task successfully removed',
+    });
 }

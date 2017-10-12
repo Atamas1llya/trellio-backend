@@ -94,7 +94,7 @@ describe('Tasks', () => {
           title: 'Task 1 modified',
         }, (err, data) => {
           expect(data).to.have.property('title').equal('Task 1 modified');
-          res.should.have.status(204);
+          res.should.have.status(200);
           done();
         })
       });
