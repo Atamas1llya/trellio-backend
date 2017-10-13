@@ -1,4 +1,5 @@
 import Board from '../models/board';
+import Task from '../models/task';
 
 export const getBoards = async (req, res, next) => {
   let boards;
@@ -45,6 +46,25 @@ export const createBoard = async (req, res, next) => {
       message: 'New board successfully created',
       board,
     })
+}
+
+export const updateBoard = async (req, res, next) => {
+  const { _id } = req.params;
+
+  try {
+     await Board.findOneAndUpdate({ _id }, req.body);
+  } catch ({ message }) {
+    return next({
+      status: 404,
+      message,
+    });
+  }
+
+  res
+    .status(201)
+    .json({
+      message: 'Board successfully updated',
+    });
 }
 
 export const deleteBoard = async (req, res, next) => {
