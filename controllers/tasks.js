@@ -5,7 +5,7 @@ export const getTasks = async (req, res, next) => {
   let tasks;
 
   try {
-    tasks = await Task.find({ board: board_id }).lean();
+    tasks = await Task.find({ board: board_id }).sort('date').lean();
   } catch ({ message }) {
     return next({
       status: 500,
@@ -24,7 +24,7 @@ export const getAllTasks = async (req, res, next) => {
   let tasks;
 
   try {
-    tasks = await Task.find().lean();
+    tasks = await Task.find().sort('date').lean();
   } catch ({ message }) {
     return next({
       status: 500,

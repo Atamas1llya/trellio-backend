@@ -20,6 +20,11 @@ const TaskSchema = new Schema({
     type: String // url to attachment
   }],
   dueDate: Number,
+  date: {
+    type: Number,
+    default: Date.now,
+    required: true,
+  },
   board: { // holding board _id
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Board',
