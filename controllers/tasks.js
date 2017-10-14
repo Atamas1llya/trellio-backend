@@ -20,6 +20,25 @@ export const getTasks = async (req, res, next) => {
     });
 }
 
+export const getAllTasks = async (req, res, next) => {
+  let tasks;
+
+  try {
+    tasks = await Task.find().lean();
+  } catch ({ message }) {
+    return next({
+      status: 500,
+      message,
+    });
+  }
+
+  res
+    .status(200)
+    .json({
+      tasks,
+    });
+}
+
 export const createTask = async (req, res, next) => {
   const { board_id } = req.params;
   let task;

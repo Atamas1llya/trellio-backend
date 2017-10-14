@@ -8,6 +8,7 @@ import getUser from '../middlewares/getUser';
 const router = Router();
 
 router.get('/boards/:board_id/tasks', tasksController.getTasks);
+router.get('/boards/tasks', tasksController.getAllTasks);
 router.post('/boards/:board_id/tasks', checkToken, getUser, tasksController.createTask);
 // board_id is not required, but...
 router.patch('/boards/:board_id/tasks/:task_id/:status', checkToken, tasksController.updateTaskStatus);
