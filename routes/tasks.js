@@ -13,6 +13,7 @@ router.post('/boards/:board_id/tasks', checkToken, getUser, tasksController.crea
 // board_id is not required, but...
 router.patch('/boards/:board_id/tasks/:task_id/:status', checkToken, tasksController.updateTaskStatus);
 router.put('/boards/:board_id/tasks/:task_id', checkToken, tasksController.updateTask);
+router.put('/boards/:board_id/tasks/:task_id/attachment', checkToken, tasksController.attachFile);
 router.delete('/boards/:board_id/tasks/:task_id', checkToken, tasksController.deleteTask);
 
 export default router;

@@ -1,4 +1,5 @@
 import Task from '../models/task';
+import { uploadImage } from '../services/storage';
 
 export const getTasks = async (req, res, next) => {
   const { board_id } = req.params;
@@ -103,6 +104,32 @@ export const updateTaskStatus = async (req, res, next) => {
     .status(200)
     .json({
       message: 'Task successfully updated',
+    });
+}
+
+export const attachFile = async (req, res, next) => {
+  const { task_id } = req.params;
+  let task, url;
+
+  try {
+    task = await Task.findOne({ _id: task_id });
+    if (!task) {
+      throw new Error('Task does not exists');
+    }
+    url = await uploadImage(req.body);
+    task.attachments.push(url);
+    task.save();
+  } catch ({ message }) {
+    return next({
+      status: 400,
+      message,
+    });
+  }
+
+  res
+    .status(200)
+    .json({
+      message: 'Attachment successfully uploaded',
     });
 }
 
