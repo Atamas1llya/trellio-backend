@@ -130,6 +130,7 @@ export const attachFile = async (req, res, next) => {
     .status(200)
     .json({
       message: 'Attachment successfully uploaded',
+      url,
     });
 }
 
