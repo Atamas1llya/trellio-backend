@@ -6,7 +6,7 @@ export const getTasks = async (req, res, next) => {
   let tasks;
 
   try {
-    tasks = await Task.find({ board: board_id }).sort('date').lean();
+    tasks = await Task.find({ board: board_id }).sort('date').populate('creator').lean();
   } catch ({ message }) {
     return next({
       status: 500,
@@ -25,7 +25,7 @@ export const getAllTasks = async (req, res, next) => {
   let tasks;
 
   try {
-    tasks = await Task.find().sort('date').lean();
+    tasks = await Task.find().sort('date').populate('creator').lean();
   } catch ({ message }) {
     return next({
       status: 500,
@@ -45,7 +45,7 @@ export const createTask = async (req, res, next) => {
   let task;
 
   try {
-    task = await Task.create({ board: board_id, ...req.body });
+    task = await Task.create({ board: board_id, creator: req.user._id, ...req.body });
   } catch (err) {
     const message = Object
       .values(err.errors)

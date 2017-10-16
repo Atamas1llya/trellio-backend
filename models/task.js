@@ -29,6 +29,10 @@ const TaskSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Board',
   },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 TaskSchema.plugin(beautifyUnique);
