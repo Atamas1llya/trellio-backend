@@ -7,4 +7,7 @@ module.exports = {
     login: '64585_trellio-uploads',
     password: 'q50klo7l',
   },
+  google: {
+    client_id: '763353141797-1qh6ictabrjkt9ssj2beno80udr63gh3.apps.googleusercontent.com',
+  },
 };
