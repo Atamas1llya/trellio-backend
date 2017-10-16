@@ -1,0 +1,35 @@
+image: node:8
+
+cache:
+  key: "$CI_JOB_NAME"
+  untracked: true
+
+variables:
+  NODE_ENV: staging
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  only:
+    - master
+  script:
+    - npm i
+  artifacts:
+    paths:
+      - node_modules/
+
+test:
+  stage: test
+  only:
+    - master
+  services:
+    - mongo
+  variables:
+    NODE_ENV: staging
+  dependencies:
+    - build
+  script:
+    - npm run test
