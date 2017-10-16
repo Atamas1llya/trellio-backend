@@ -19,7 +19,7 @@ build:
     - npm i
   artifacts:
     paths:
-      - node_modules/
+      - /
 
 test:
   stage: test
