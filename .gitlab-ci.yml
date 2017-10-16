@@ -32,4 +32,4 @@ test:
   dependencies:
     - build
   script:
-    - npm run test
+    - npm run test-staging
