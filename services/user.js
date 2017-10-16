@@ -1,11 +1,14 @@
 import User from '../models/user';
 
-export const getUserByToken = async (token) => {
-  const { _id } = token;
+export const getUserByToken = async ({ _id, googleId }) => {
   let user;
 
   try {
-    user = await User.find({ _id }, { password: 0 });
+    if (_id) {
+      user = await User.find({ _id }, { password: 0 });
+    } else {
+      user = await User.find({ googleId }, { password: 0 });
+    }
   } catch (err) {
     throw err;
   }

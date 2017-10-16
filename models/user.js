@@ -17,6 +17,9 @@ const UserSchema = new Schema({
     required: true,
     minlength: 6,
   },
+  googleId: {
+    type: String,
+  }
 });
 
 UserSchema.plugin(beautifyUnique);
