@@ -9,7 +9,7 @@ export const getTasks = async (req, res, next) => {
     tasks = await Task.find({ board: board_id }).sort('date').populate('creator').lean();
   } catch ({ message }) {
     return next({
-      status: 500,
+      status: 404,
       message,
     });
   }
@@ -67,14 +67,13 @@ export const createTask = async (req, res, next) => {
 
 export const updateTask = async (req, res, next) => {
   const { task_id } = req.params;
+  let task;
 
   try {
-    await Task.findOneAndUpdate({ _id: task_id }, req.body);
-  } catch (err) {
-    const message = Object
-      .values(err.errors)
-      .join(', '); // get string error from errors objects
-
+    task = await Task.findOne({ _id: task_id });
+    Object.assign(task, req.body);
+    await task.save();
+  } catch ({ message }) {
     return next({
       status: 400,
       message,
@@ -90,9 +89,12 @@ export const updateTask = async (req, res, next) => {
 
 export const updateTaskStatus = async (req, res, next) => {
   const { task_id, status } = req.params;
+  let task;
 
   try {
-    await Task.findOneAndUpdate({ _id: task_id }, { status });
+    task = await Task.findOne({ _id: task_id });
+    task.status = status;
+    await task.save();
   } catch ({ message }) {
     return next({
       status: 400,

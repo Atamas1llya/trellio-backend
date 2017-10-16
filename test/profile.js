@@ -27,5 +27,24 @@ describe('Profile', () => {
         done();
       });
     });
+
+    it('It should REJECT unauthorized request', (done) => {
+      api.get({
+        url: '/api/profile',
+      }, (err, res) => {
+        res.should.have.status(403);
+        done();
+      });
+    });
+
+    it('It should REJECT request with wrong token', (done) => {
+      api.get({
+        url: '/api/profile',
+        token: 'wrong_token',
+      }, (err, res) => {
+        res.should.have.status(403);
+        done();
+      });
+    });
   });
 });

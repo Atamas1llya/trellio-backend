@@ -50,18 +50,29 @@ export const createBoard = async (req, res, next) => {
 
 export const updateBoard = async (req, res, next) => {
   const { _id } = req.params;
+  let board;
 
   try {
-     await Board.findOneAndUpdate({ _id }, req.body);
+    board = await Board.findOne({ _id });
+    
+    if (!board) {
+      return next({
+        status: 404,
+        message: 'Board not found!',
+      });
+    }
+
+    Object.assign(board, req.body);
+    await board.save();
   } catch ({ message }) {
     return next({
-      status: 404,
+      status: 400,
       message,
     });
   }
 
   res
-    .status(201)
+    .status(200)
     .json({
       message: 'Board successfully updated',
     });

@@ -30,3 +30,19 @@ export const put = ({ url, body, token }, end) => {
     .send(body)
     .end(end);
 }
+
+export const remove = ({ url, token }, end) => {
+  chai.request(server)
+    .delete(url)
+    .set('content-type', 'application/json')
+    .set('Authorization', `Bearer ${token}`)
+    .end(end);
+}
+
+export const patch = ({ url, token }, end) => {
+  chai.request(server)
+    .patch(url)
+    .set('content-type', 'application/json')
+    .set('Authorization', `Bearer ${token}`)
+    .end(end);
+}
