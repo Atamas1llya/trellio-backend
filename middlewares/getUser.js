@@ -7,7 +7,7 @@ export default async (req, res, next) => {
   try {
     user = await userService.getUserByToken(token);
     if (!user) {
-      throw new Error("User does not exists!");
+      throw new Error('User does not exists!');
     }
   } catch ({ message }) {
     return next({

@@ -17,7 +17,7 @@ const TaskSchema = new Schema({
     requred: true,
   },
   attachments: [{
-    type: String // url to attachment
+    type: String, // url to attachment
   }],
   dueDate: Number,
   date: {

@@ -19,7 +19,7 @@ const UserSchema = new Schema({
   },
   googleId: {
     type: String,
-  }
+  },
 });
 
 UserSchema.plugin(beautifyUnique);

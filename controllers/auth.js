@@ -4,29 +4,28 @@ import GoogleAuth from 'google-auth-library';
 import config from '../config';
 import User from '../models/user';
 
-const auth = new GoogleAuth;
+const auth = new GoogleAuth();
 const client = new auth.OAuth2(config.google.client_id, '', '');
 
-const verifyGoogleToken = (token, client_id) => {
-  return new Promise((resolve) => {
-    client.verifyIdToken(token, client_id, (e, login) => {
-      const payload = login.getPayload();
-      const userid = payload['sub'];
+const verifyGoogleToken = (token, clientId) => new Promise((resolve) => {
+  client.verifyIdToken(token, clientId, (e, login) => {
+    const payload = login.getPayload();
+    const userid = payload.sub;
 
-      const user = {
-        email: payload.email,
-        name: payload.name,
-        password: userid,
-        googleId: userid,
-      };
-      resolve(user);
-    });
+    const user = {
+      email: payload.email,
+      name: payload.name,
+      password: userid,
+      googleId: userid,
+    };
+    resolve(user);
   });
-}
+});
 
 export const signup = async (req, res, next) => {
   const credentials = req.body;
-  let user, token;
+  let user;
+  let token;
 
   try {
     user = await User.create(credentials);
@@ -40,7 +39,7 @@ export const signup = async (req, res, next) => {
       status: 400,
       message,
     });
-  };
+  }
 
   res
     .status(201)
@@ -53,7 +52,8 @@ export const signup = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
-  let user, token;
+  let user;
+  let token;
 
   try {
     user = await User.findOne({ email });
@@ -77,9 +77,9 @@ export const login = async (req, res, next) => {
 
 export const googleLogin = async (req, res, next) => {
   const googleToken = req.body.token;
-  let credentials,
-    token,
-    user;
+  let credentials;
+  let token;
+  let user;
 
   try {
     credentials = await verifyGoogleToken(googleToken, config.google.client_id);
@@ -107,4 +107,4 @@ export const googleLogin = async (req, res, next) => {
         _id: user._id,
       },
     });
-}
+};

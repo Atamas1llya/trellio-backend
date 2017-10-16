@@ -6,10 +6,8 @@ import bluebird from 'bluebird';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
-const MongoStore = require('connect-mongo')(session);
 
 import config from './config';
-
 // routes
 import authRoutes from './routes/auth';
 import profileRoutes from './routes/profile';
@@ -19,11 +17,13 @@ import tasksRoutes from './routes/tasks';
 // error handler
 import errorHandler from './middlewares/errorHandler';
 
+const MongoStore = require('connect-mongo')(session);
+
 mongoose.Promise = bluebird;
 mongoose.connect(config.database, (err) => {
   if (err) throw err;
   console.log(chalk.cyan('Connected to database...'));
-})
+});
 
 const app = express();
 
@@ -31,21 +31,17 @@ app.use(cors());
 app.use(bodyParser.json({
   limit: '20mb',
 }));
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: config.secret,
+  store: new MongoStore({
+    url: config.database,
   }),
-);
-app.use(
-  session({
-    resave: true,
-    saveUninitialized: true,
-    secret: config.secret,
-    store: new MongoStore({
-      url: config.database,
-    }),
-  }),
-);
+}));
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('tiny'));
 }

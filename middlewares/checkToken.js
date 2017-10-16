@@ -13,7 +13,7 @@ export default async (req, res, next) => {
       status: 403,
       message: 'Invalid token',
     });
-  };
+  }
 
 
   req.token = tokenObject;
